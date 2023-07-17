@@ -21,8 +21,8 @@ def delete_atom():
   return np.random.choice(choices, p=p)
 
 def append_atom():
-  choices = [['single',['C','N','O','F','S','Cl','Br'],7*[1.0/7.0]],
-             ['double',['C','N','O'],3*[1.0/3.0]],
+  choices = [['single',['C','N','P'],3*[1.0/3.0]],
+             ['double',['C','N'],2*[1.0/2.0]],
              ['triple',['C','N'],2*[1.0/2.0]] ]
   p_BO = [0.60,0.35,0.05]
   
@@ -41,7 +41,7 @@ def append_atom():
   return rxn_smarts
 
 def insert_atom():
-  choices = [['single',['C','N','O','S'],4*[1.0/4.0]],
+  choices = [['single',['C','N','P'],4*[1.0/3.0]],
              ['double',['C','N'],2*[1.0/2.0]],
              ['triple',['C'],[1.0]] ]
   p_BO = [0.60,0.35,0.05]
@@ -61,9 +61,8 @@ def insert_atom():
   return rxn_smarts
 
 def change_bond_order():
-  choices = ['[*:1]!-[*:2]>>[*:1]-[*:2]','[*;!H0:1]-[*;!H0:2]>>[*:1]=[*:2]',
-             '[*:1]#[*:2]>>[*:1]=[*:2]','[*;!R;!H1;!H0:1]~[*:2]>>[*:1]#[*:2]']
-  p = [0.45,0.45,0.05,0.05]
+  choices = ['[*:1]!-[*:2]>>[*:1]-[*:2]']
+  p = [1.0]
   
   return np.random.choice(choices, p=p)
 
@@ -71,17 +70,15 @@ def delete_cyclic_bond():
   return '[*:1]@[*:2]>>([*:1].[*:2])'
 
 def add_ring():
-  choices = ['[*;!r;!H0:1]~[*;!r:2]~[*;!r;!H0:3]>>[*:1]1~[*:2]~[*:3]1',
-             '[*;!r;!H0:1]~[*!r:2]~[*!r:3]~[*;!r;!H0:4]>>[*:1]1~[*:2]~[*:3]~[*:4]1',
-             '[*;!r;!H0:1]~[*!r:2]~[*:3]~[*:4]~[*;!r;!H0:5]>>[*:1]1~[*:2]~[*:3]~[*:4]~[*:5]1',
+  choices = ['[*;!r;!H0:1]~[*!r:2]~[*:3]~[*:4]~[*;!r;!H0:5]>>[*:1]1~[*:2]~[*:3]~[*:4]~[*:5]1',
              '[*;!r;!H0:1]~[*!r:2]~[*:3]~[*:4]~[*!r:5]~[*;!r;!H0:6]>>[*:1]1~[*:2]~[*:3]~[*:4]~[*:5]~[*:6]1'] 
-  p = [0.05,0.05,0.45,0.45]
+  p = [0.5,0.5]
   
   return np.random.choice(choices, p=p)
 
 def change_atom(mol):
-  choices = ['#6','#7','#8','#9','#16','#17','#35']
-  p = [0.15,0.15,0.14,0.14,0.14,0.14,0.14]
+  choices = ['#6','#7']
+  p = [0.5,0.5]
   
   X = np.random.choice(choices, p=p)
   while not mol.HasSubstructMatch(Chem.MolFromSmarts('['+X+']')):
