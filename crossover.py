@@ -88,8 +88,8 @@ def crossover_ring(parent_A,parent_B):
   if not parent_A.HasSubstructMatch(ring_smarts) and not parent_B.HasSubstructMatch(ring_smarts):
     return None
   
-  rxn_smarts1 = ['[*:1]~[1*].[1*]~[*:2]>>[*:1]-[*:2]','[*:1]~[1*].[1*]~[*:2]>>[*:1]=[*:2]']
-  rxn_smarts2 = ['([*:1]~[1*].[1*]~[*:2])>>[*:1]-[*:2]','([*:1]~[1*].[1*]~[*:2])>>[*:1]=[*:2]']
+  rxn_smarts1 = ['[*:1]~[1*].[1*]~[*:2]>>[*:1]-[*:2]']
+  rxn_smarts2 = ['([*:1]~[1*].[1*]~[*:2])>>[*:1]-[*:2]']
   for i in range(10):
     fragments_A = cut_ring(parent_A)
     fragments_B = cut_ring(parent_B)
